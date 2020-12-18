@@ -1,36 +1,36 @@
 class Odometer:
-    def is_ascending(n):
+    def is_ascending(self, n):
         if n < 10:
             return True
         if n % 10 <= (n // 10) % 10:
             return False
-        return Odometer.is_ascending(n // 10)
+        return self.is_ascending(n // 10)
 
     def __init__(self, size):
         self.readings = []
         if size not in range(2, 9):
             self.size = 0
-            return 
+            return
         for n in range(10 ** (size - 1), 10 ** size):
-            if Odometer.is_ascending(n):
+            if self.is_ascending(n):
                 self.readings.append(n)
         self.SIZE = size
         self.LENGTH = len(self.readings)
         self.position = 0
         return
-    
+
     def __DEBUG__(self):
-        print(f"Size = {self.SIZE}, First = {self.readings[0]}", end = " ")
-        print(f"Last = {self.readings[-1]}", end = " ")
-        print(f"Current = {self.readings[self.position]}", end = " ")
+        print(f"Size = {self.SIZE}, First = {self.readings[0]}", end=" ")
+        print(f"Last = {self.readings[-1]}", end=" ")
+        print(f"Current = {self.readings[self.position]}", end=" ")
         print(f"Position = {self.position}")
 
-    def next_reading(self, step = 1):
+    def next_reading(self, step=1):
         self.position += step
         self.position %= self.LENGTH
         return
 
-    def prev_reading(self, step = 1):
+    def prev_reading(self, step=1):
         self.position -= step
         self.position %= self.LENGTH
         return
@@ -43,6 +43,7 @@ class Odometer:
             togo += self.LENGTH
         return togo
 
+
 o = Odometer(3)
 o.next_reading(4)
 o.__DEBUG__()
@@ -52,5 +53,3 @@ p = Odometer(3)
 p.__DEBUG__()
 print(o.diff(p))
 print(p.diff(o))
-
-
