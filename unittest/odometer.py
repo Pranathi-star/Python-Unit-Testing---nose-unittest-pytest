@@ -1,5 +1,5 @@
 class Odometer:
-    def is_ascending(self, n):
+    def is_ascending(n):
         if n < 10:
             return True
         if n % 10 <= (n // 10) % 10:
