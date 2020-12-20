@@ -1,5 +1,6 @@
 class Odometer:
-    def is_ascending(n):
+    @staticmethod
+    def is_ascending(n: int) -> bool:
         if n < 10:
             return True
         if n % 10 <= (n // 10) % 10:
