@@ -2,33 +2,27 @@ from range import Range
 import pytest
 
 
-@pytest.mark.parametrize("container, contained", [(Range(4), Range(0, 4)), (Range(5), Range(0, 4)), (Range(1, 4), Range(3, 4))])
-def test_contains(container, contained):
-    assert(container.contains(contained)) == True
+@pytest.mark.parametrize("container, contained, expected_result", [(Range(4), Range(0, 4), True), (Range(5), Range(0, 4), True), (Range(1, 4), Range(3, 4), True), (Range(0, 4), Range(5), False), (Range(1, 4), Range(3, 5), False), (Range(1, 2), Range(4, 5), False), (Range(4, 5), Range(1, 2), False)])
+def test_contains(container, contained, expected_result):
+    assert(container.contains(contained)) == expected_result
 
 
-@pytest.mark.parametrize("container, contained", [(Range(0, 4), Range(5)), (Range(1, 4), Range(3, 5)), (Range(1, 2), Range(4, 5)), (Range(4, 5), Range(1, 2))])
-def test_does_not_contain(container, contained):
-    assert(container.contains(contained)) == False
+@pytest.mark.parametrize("first_range, second_range, expected_result", [(Range(1, 3), Range(2, 3), True), (Range(2, 3), Range(1, 3), True), (Range(1, 5), Range(6, 7), False), (Range(6, 7), Range(1, 5), False)])
+def test_overlapping(first_range, second_range, expected_result):
+    assert(first_range.overlaps(second_range)) == expected_result
 
 
-def test_overlaps():
-    pass
+@pytest.mark.parametrize("first_range, second_range, expected_result", [(Range(1, 2), Range(3, 4), True), (Range(3, 4), Range(1, 2), True), (Range(1, 3), Range(2, 3), False), (Range(2, 3), Range(1, 3), False)])
+def test_disjoint(first_range, second_range, expected_result):
+    assert(first_range.disjoint(second_range)) == expected_result
 
 
-def test_disjoint():
-    pass
+@pytest.mark.parametrize("first_range, second_range, expected_result", [(Range(1, 2), Range(2, 7), True), (Range(2, 7), Range(1, 2), True), (Range(1, 5), Range(4, 7), False), (Range(1, 2), Range(4, 7), False), (Range(4, 7), Range(1, 2), False)])
+def test_touching(first_range, second_range, expected_result):
+    assert(first_range.touching(second_range)) == expected_result
 
 
-def test_touching():
-    pass
+@pytest.mark.parametrize("smaller, larger, expected_result", [(Range(1, 3), Range(3, 10), True), (Range(1), Range(2), True), (Range(4, 5), Range(1, 2), False), (Range(2), Range(1), False), (Range(1), Range(1), False), (Range(1, 4), Range(2, 5), False), (Range(2, 6), Range(1, 4), False)])
+def test_less_than(smaller, larger, expected_result):
+    assert smaller.less_than(larger) == expected_result
 
-
-@pytest.mark.parametrize("smaller, larger", [(Range(1, 2), Range(3, 10)), (Range(1), Range(2))])
-def test_less_than(smaller, larger):
-    assert smaller.less_than(larger) == True
-
-
-@pytest.mark.parametrize("smaller, larger", [(Range(2), Range(1)), (Range(1), Range(1)), (Range(1, 4), Range(2, 5)), (Range(2, 6), Range(1, 4))])
-def test_not_less_than(smaller, larger):
-    assert smaller.less_than(larger) == False
