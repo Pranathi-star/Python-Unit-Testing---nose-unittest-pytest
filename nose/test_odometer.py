@@ -4,6 +4,7 @@ class TestOdometer:
     def isAscending(self):
         assert odometer.Odometer.is_ascending(22) == False
         assert odometer.Odometer.is_ascending(312) == False
+        assert odometer.Odometer.is_ascending(123) == True
         assert odometer.Odometer.is_ascending(90) == False
 
     def nextReading(self):
