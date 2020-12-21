@@ -43,7 +43,7 @@ class Odometer:
         if togo < 0:
             togo += self.LENGTH
         return togo
-
+'''
 o = Odometer(3)
 o.next_reading(4)
 o.__DEBUG__()
@@ -53,5 +53,5 @@ p = Odometer(3)
 p.__DEBUG__()
 print(o.diff(p))
 print(p.diff(o))
-
+'''
 
