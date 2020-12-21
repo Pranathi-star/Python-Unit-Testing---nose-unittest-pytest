@@ -1,7 +1,7 @@
 # Python-Unit-Testing---nose-unittest-pytest
 WTEF Group 1 Python
 
-## Installing
+## Installing Pytest
 1. Make virtual Environment
 ```
 pip install virtualenv
@@ -12,4 +12,9 @@ source testing_env/bin/activate
 2. Install pytest
 ```
 pip install pytest
+```
+## Using unittest
+```
+import unittest
+
 ```
