@@ -5,13 +5,18 @@ WTEF Group 1 Python
 1. Make virtual Environment
 ```
 pip install virtualenv
-virtual testing_env
+virtualenv testing_env
 source testing_env/bin/activate
 ```
 
 2. Install pytest
 ```
 pip install pytest
+```
+3. Run tests
+```
+cd pytest
+pytest
 ```
 ## Using unittest
 ```
