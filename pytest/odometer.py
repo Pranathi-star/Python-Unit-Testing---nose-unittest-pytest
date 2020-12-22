@@ -8,7 +8,7 @@ class Odometer:
 
     def __init__(self, size):
         self.readings = []
-        if size not in range(2, 9):
+        if size not in range(1, 9):
             self.size = 0
             return
         for n in range(10 ** (size - 1), 10 ** size):
@@ -18,6 +18,9 @@ class Odometer:
         self.LENGTH = len(self.readings)
         self.position = 0
         return
+
+    def get_position(self):
+        return self.readings[self.position]
 
     def __DEBUG__(self):
         print(f"Size = {self.SIZE}, First = {self.readings[0]}", end=" ")
@@ -44,7 +47,7 @@ class Odometer:
         return togo
 
 
-o = Odometer(3)
+o = Odometer(2)
 o.next_reading(4)
 o.__DEBUG__()
 o.prev_reading(6)

@@ -47,7 +47,7 @@ class Range:
         Returns True if the length of the super range is
         less than the length of the sub range
         """
-        return self.end - self.start < sub.end - sub.start
+        return (self.end - self.start) < (sub.end - sub.start) if self.start == sub.start else self.start < sub.start
 
 
 if __name__ == "__main__":
