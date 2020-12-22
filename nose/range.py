@@ -37,17 +37,17 @@ class Range:
     def touching(self, sub) -> bool:
         """
         Finds the smaller of the two starting points and checks if
-        the end point of the one that started eariler is equal to
+        the end point of the one that started earlier is equal to
         the starting point of the range that started after.
         """
-        return sub.start == self.end if self.start < sub.start else self.start == sub.end
+        return sub.start == self.end - 1 if self.start < sub.start else self.start == sub.end - 1
 
     def less_than(self, sub) -> bool:
         """
-        Returns True if the length of the super range is
-        less than the length of the sub range
+        Returns True if the starting point of super range is
+        less than the starting point of the sub range
         """
-        return self.end - self.start < sub.end - sub.start
+        return self.start < sub.start if self.start != sub.start else self.end < sub.end
 
 
 if __name__ == "__main__":

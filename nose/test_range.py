@@ -33,9 +33,9 @@ class TestRangeMethods() :
         assert_equals(first_range.disjoint(second_range), expected_result)
 
 
-    @parameterized([(Range(1, 2), Range(2, 7), True), 
-                    (Range(2, 7), Range(1, 2), True), 
-                    (Range(1, 5), Range(4, 7), False), 
+    @parameterized([(Range(1, 3), Range(2, 7), True), 
+                    (Range(1, 7), Range(1, 2), True), 
+                    (Range(1, 5), Range(4, 7), True), 
                     (Range(1, 2), Range(4, 7), False), 
                     (Range(4, 7), Range(1, 2), False)])
     def test_touching(self, first_range, second_range, expected_result):
@@ -47,7 +47,7 @@ class TestRangeMethods() :
                     (Range(4, 5), Range(1, 2), False), 
                     (Range(2), Range(1), False), 
                     (Range(1), Range(1), False), 
-                    (Range(1, 4), Range(2, 5), False), 
+                    (Range(1, 4), Range(2, 5), True), 
                     (Range(2, 6), Range(1, 4), False)])
     def test_less_than(self, smaller, larger, expected_result):
         assert_equals(smaller.less_than(larger), expected_result)
