@@ -10,7 +10,8 @@ class Odometer:
     def __init__(self, size):
         self.readings = []
         if size not in range(2, 9):
-            self.size = 0
+            self.SIZE = 0
+            self.LENGTH = 0
             return 
         for n in range(10 ** (size - 1), 10 ** size):
             if Odometer.is_ascending(n):
