@@ -4,15 +4,22 @@ from odometer import Odometer
 class TestOdometer(unittest.TestCase):
     
     def setUp(self):
+        self.o1 = Odometer(1)
         self.o2 = Odometer(2)
 
     def test_ascending(self):
         self.assertEqual(Odometer.is_ascending(11), False)
-        self.assertEqual(Odometer.is_ascending(-123), True)
+        self.assertEqual(Odometer.is_ascending(4689), True)
         self.assertEqual(Odometer.is_ascending(2), True)
         self.assertEqual(Odometer.is_ascending(123456789), True)
-        self.assertEqual(Odometer.is_ascending(12.34), True)
     
+    def test_length(self):
+        length = self.o1.LENGTH
+        self.assertEqual(length, 0)
+        
+        length = self.o2.LENGTH
+        self.assertEqual(length, 36)
+
     def test_next_reading(self):
         #getting back the starting pos after adding length
         length = self.o2.LENGTH
@@ -40,8 +47,15 @@ class TestOdometer(unittest.TestCase):
         self.assertEqual(self.o2.readings[self.o2.position], 49)
         
     
-    def test_diff(self, o = 1):
-        pass
+    def test_diff(self):
+        odo = Odometer(2)
+        
+        self.o2.next_reading(3)
+        odo.next_reading(5)
+
+        self.assertEqual(self.o2.diff(odo), 2)
+        self.assertEqual(odo.diff(self.o2), 34)
+
 
 if __name__ == '__main__':
     unittest.main()
