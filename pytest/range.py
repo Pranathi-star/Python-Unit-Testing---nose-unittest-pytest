@@ -40,7 +40,7 @@ class Range:
         the end point of the one that started eariler is equal to
         the starting point of the range that started after.
         """
-        return sub.start == self.end if self.start < sub.start else self.start == sub.end
+        return sub.start == self.end - 1 if self.start < sub.start else self.start == sub.end - 1
 
     def less_than(self, sub) -> bool:
         """
