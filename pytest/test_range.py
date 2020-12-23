@@ -39,7 +39,7 @@ def test_disjoint(first_range, second_range, expected_result):
     (Range(1, 2), Range(4, 7), False),
     (Range(4, 7), Range(1, 2), False)])
 def test_touching(first_range, second_range, expected_result):
-    assert(first_range.touching(second_range)) == expected_result
+    assert(first_range.is_touching(second_range)) == expected_result
 
 
 @pytest.mark.parametrize("smaller, larger, expected_result", [
@@ -51,4 +51,4 @@ def test_touching(first_range, second_range, expected_result):
     (Range(1, 4), Range(2, 5), True),
     (Range(2, 6), Range(1, 4), False)])
 def test_less_than(smaller, larger, expected_result):
-    assert smaller.less_than(larger) == expected_result
+    assert smaller.is_less_than(larger) == expected_result
