@@ -74,3 +74,13 @@ def test_more_than(larger, smaller, expected_result):
 def test_equal_to(first_range, second_range, expected_result):
     assert first_range.is_equal_to(second_range) == expected_result
 
+@pytest.mark.parametrize("first_range, second_range, expected_result", [
+    (Range(1, 3), Range(2, 3), Range(1, 3)),
+    (Range(1, 5), Range(6, 10), Range(0)),
+    (Range(1, 2), Range(3), Range(3)),
+    (Range(1, 5), Range(2, 3), Range(1, 5)),
+    (Range(1, 3), Range(2, 5), Range(1, 5)),
+    (Range(6, 10), Range(1, 5), Range(0)),
+    (Range(2, 5), Range(1, 3), Range(1, 5))])
+def test_merge(first_range, second_range, expected_result):
+    assert first_range.merge(second_range) == expected_result
