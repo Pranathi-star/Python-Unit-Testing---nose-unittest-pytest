@@ -52,3 +52,25 @@ def test_touching(first_range, second_range, expected_result):
     (Range(2, 6), Range(1, 4), False)])
 def test_less_than(smaller, larger, expected_result):
     assert smaller.is_less_than(larger) == expected_result
+
+@pytest.mark.parametrize("larger, smaller, expected_result", [
+    (Range(1, 3), Range(3, 10), False),
+    (Range(1), Range(2), False),
+    (Range(4, 5), Range(1, 2), True),
+    (Range(2), Range(1), True),
+    (Range(1), Range(1), False),
+    (Range(1, 4), Range(2, 5), False),
+    (Range(2, 6), Range(1, 4), True)])
+def test_more_than(larger, smaller, expected_result):
+    assert larger.is_more_than(smaller) == expected_result
+
+@pytest.mark.parametrize("first_range, second_range, expected_result", [
+    (Range(1, 3), Range(1, 2), False),
+    (Range(1), Range(2), False),
+    (Range(4, 5), Range(4, 5), True),
+    (Range(1), Range(1), True),
+    (Range(2, 3), Range(3, 4), False),
+    (Range(2), Range(3, 4), False)])
+def test_equal_to(first_range, second_range, expected_result):
+    assert first_range.is_equal_to(second_range) == expected_result
+
