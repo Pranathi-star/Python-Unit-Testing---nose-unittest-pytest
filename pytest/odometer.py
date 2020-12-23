@@ -49,10 +49,10 @@ class Odometer:
 
 o = Odometer(2)
 o.next_reading(4)
-o.__DEBUG__()
+# o.__DEBUG__()
 o.prev_reading(6)
-o.__DEBUG__()
+# o.__DEBUG__()
 p = Odometer(3)
-p.__DEBUG__()
+# p.__DEBUG__()
 print(o.diff(p))
 print(p.diff(o))
