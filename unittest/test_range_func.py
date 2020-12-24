@@ -3,6 +3,10 @@ from range_func import Range
 
 class TestRangeMethods(unittest.TestCase):
 
+    def test_Range(self):
+        self.assertRaises(ValueError, Range)
+        self.assertRaises(ValueError, Range, 1, 3, 7)
+
     def test_contains(self):
         self.assertTrue(Range(4).contains(Range(0, 4)))
         self.assertTrue(Range(5).contains(Range(4)))
