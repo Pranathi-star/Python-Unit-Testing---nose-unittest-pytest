@@ -49,6 +49,11 @@ class Range:
         """
         return self.end - self.start < sub.end - sub.start
 
+    def merge(self, sub):
+        if self.disjoint(sub):
+            return Range(0)
+        return Range(min(self.start, sub.start), max(self.end, sub.end))
+
 
 if __name__ == "__main__":
     a = Range(8)
