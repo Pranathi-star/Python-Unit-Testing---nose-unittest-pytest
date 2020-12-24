@@ -5,6 +5,8 @@ class Range:
         Sets starts to 0 if only one argument provided else
         sets start and end according to the arguments passed.
         """
+        if(len(args) < 1 or len(args) > 2):
+            raise ValueError
         self.start = 0 if len(args) == 1 else args[0]
         self.end = args[0] if len(args) == 1 else args[1]
         return
