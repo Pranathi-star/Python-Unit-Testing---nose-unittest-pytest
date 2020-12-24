@@ -11,6 +11,9 @@ class Range:
         self.end = args[0] if len(args) == 1 else args[1]
         return
 
+    def __repr__(self):
+        return f"[{self.start}, {self.end})"
+
     def __DEBUG__(self):
         print(f"Start = {self.start}, End = {self.end}")
         return

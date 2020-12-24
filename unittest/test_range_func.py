@@ -45,9 +45,9 @@ class TestRangeMethods(unittest.TestCase):
         self.assertFalse(Range(2, 6).less_than(Range(1, 4)))
 
     def test_merge(self):
-        self.assertEqual(Range(4).merge(Range(3, 9)), Range(9))
-        self.assertEqual(Range(7, 9).merge(Range(8)), Range(9))
-        self.assertEqual(Range(3).merge(Range(4, 7)), Range(0))
+        self.assertEqual(Range(4).merge(Range(3, 9)), "[0, 9)")
+        self.assertEqual(Range(7, 9).merge(Range(8)), "[0, 9)")
+        self.assertEqual(Range(3).merge(Range(4, 7)), "[0, 0)")
 
 
 if __name__ == "__main__":
