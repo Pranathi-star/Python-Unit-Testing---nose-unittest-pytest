@@ -84,7 +84,7 @@ class Range:
         self.end -= n
 
         if self.start > self.end:
-            self.reset()
+            self.__reset()
 
     def shift_left(self, n):
         self.start -= n

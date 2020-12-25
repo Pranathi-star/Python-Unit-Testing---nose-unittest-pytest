@@ -85,6 +85,22 @@ def test_equal_to(first_range, second_range, expected_result):
 def test_merge(first_range, second_range, expected_result):
     assert first_range.merge(second_range).is_equal_to(expected_result)
 
+@pytest.mark.parametrize("first_range, expected_result", [
+    (Range(4, 8), Range(5, 7)),
+    (Range(2, 3), Range(0)),
+    (Range(2, 4), Range(3, 3))])
+def test_squeeze_default(first_range, expected_result):
+    first_range.squeeze()
+    assert first_range.is_equal_to(expected_result)
+
+@pytest.mark.parametrize("first_range, step, expected_result", [
+    (Range(6, 8), 3, Range(0)),
+    (Range(3, 8), 2, Range(5, 6)),
+    (Range(2, 5), 1, Range(3, 4))])
+def test_squeeze(first_range, step, expected_result):
+    first_range.squeeze(step)
+    assert first_range.is_equal_to(expected_result)
+
 @pytest.mark.parametrize("first_range, step, expected_result", [
     (Range(6, 8), 5, Range(1, 3)),
     (Range(2, 5), 0, Range(2, 5))])
