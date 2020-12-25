@@ -106,7 +106,8 @@ class Range(ABC):
         if (self.lessThan(range_)):
             return Relation.OVERLAPL
         return Relation.OVERLAPR
-
+    def toList(self) -> [int]:
+        pass
 class OpenRange(Range):
     ''' (a, b) '''
     def toString(self) -> str:
@@ -135,6 +136,10 @@ class OpenRange(Range):
             return OpenRange(0, 0)
         a, b = sorted([self.start, self.end, range_.start, range_.end])[1:3]
         return OpenRange(a, b)
+
+    def toList(self) -> [int]:
+        return list(range(self.start + 1, self.end))
+
 
 class ClosedRange(Range):
     ''' [a, b] '''
@@ -165,6 +170,9 @@ class ClosedRange(Range):
         a, b = sorted([self.start, self.end, range_.start, range_.end])[1:3]
         return ClosedRange(a, b)
 
+    def toList(self) -> [int]:
+        return list(range(self.start, self.end + 1))
+
 class SemiOpenRange(Range):
     ''' [a, b) '''
     def toString(self) -> str:
@@ -194,12 +202,17 @@ class SemiOpenRange(Range):
         a, b = sorted([self.start, self.end, range_.start, range_.end])[1:3]
         return SemiOpenRange(a, b)
 
+    def toList(self) -> [int]:
+        return list(range(self.start, self.end))
+
 range0 = ClosedRange(1, 3)
 range1 = ClosedRange(3, 5)
-range2 = ClosedRange(1, 3)
-range3 = SemiOpenRange(1, 3)
+range2 = OpenRange(3, 5)
+range3 = SemiOpenRange(3, 5)
 
-print(range1.toString())
+print(range1.toList())
+print(range2.toList())
+print(range3.toList())
 print(range0.isOverlapping(range1))
 print(range0.classify(range1))
 print(range2.toString())
