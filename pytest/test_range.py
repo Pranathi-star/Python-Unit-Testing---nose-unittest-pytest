@@ -83,4 +83,4 @@ def test_equal_to(first_range, second_range, expected_result):
     (Range(6, 10), Range(1, 5), Range(0)),
     (Range(2, 5), Range(1, 3), Range(1, 5))])
 def test_merge(first_range, second_range, expected_result):
-    assert first_range.merge(second_range) == expected_result
+    assert first_range.merge(second_range).is_equal_to(expected_result)

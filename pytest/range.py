@@ -28,7 +28,7 @@ class Range:
         """
         If two ranges don't overlap, then they are disjoint.
         """
-        return sub.start < self.end or self.start < sub.end
+        return sub.start > self.end or self.start > sub.end
 
     def overlaps(self, sub) -> bool:
         """
@@ -92,7 +92,10 @@ class Range:
         pass
 
     def merge(self, sub):
-        return Range(sorted(self.start, self.end, sub.start, sub.end)[1:3])
+        if self.disjoint(sub):
+            return Range(0)
+        else:
+            return Range(min(self.start, sub.start), max(self.end, sub.end))
 
     def common(self):
         pass
