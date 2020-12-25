@@ -84,3 +84,17 @@ def test_equal_to(first_range, second_range, expected_result):
     (Range(2, 5), Range(1, 3), Range(1, 5))])
 def test_merge(first_range, second_range, expected_result):
     assert first_range.merge(second_range).is_equal_to(expected_result)
+
+@pytest.mark.parametrize("first_range, step, expected_result", [
+    (Range(6, 8), 5, Range(1, 3)),
+    (Range(2, 5), 0, Range(2, 5))])
+def test_shift_left(first_range, step, expected_result):
+    first_range.shift_left(step)
+    assert first_range.is_equal_to(expected_result)
+
+@pytest.mark.parametrize("first_range, step, expected_result", [
+    (Range(1, 3), 5, Range(6, 8)),
+    (Range(2, 5), 0, Range(2, 5))])
+def test_shift_right(first_range, step, expected_result):
+    first_range.shift_right(step)
+    assert first_range.is_equal_to(expected_result)

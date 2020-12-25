@@ -66,6 +66,9 @@ class Range:
         """
         return self.start == sub.start and self.end == sub.end
 
+    def __reset(self):
+        self.start = self.end = 0
+
     def stretch_left(self, left=1):
         self.start -= left
 
@@ -77,28 +80,25 @@ class Range:
         self.end += right
 
     def squeeze(self, n=1):
-        pass
+        self.start += n
+        self.end -= n
 
-    def shift(self, n):
-        pass
+        if self.start > self.end:
+            self.reset()
 
     def shift_left(self, n):
-        pass
+        self.start -= n
+        self.end -= n
 
     def shift_right(self, n):
-        pass
-
-    def classify(self):
-        pass
+        self.start += n
+        self.end += n
 
     def merge(self, sub):
         if self.disjoint(sub):
             return Range(0)
         else:
             return Range(min(self.start, sub.start), max(self.end, sub.end))
-
-    def common(self):
-        pass
 
 
 if __name__ == "__main__":
