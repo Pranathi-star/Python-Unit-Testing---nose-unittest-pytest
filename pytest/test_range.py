@@ -114,3 +114,52 @@ def test_shift_left(first_range, step, expected_result):
 def test_shift_right(first_range, step, expected_result):
     first_range.shift_right(step)
     assert first_range.is_equal_to(expected_result)
+
+@pytest.mark.parametrize("first_range, step, expected_result", [
+    (Range(6, 8), 5, Range(1, 8)),
+    (Range(2, 5), 0, Range(2, 5))])
+def test_stretch_left(first_range, step, expected_result):
+    first_range.stretch_left(step)
+    assert first_range.is_equal_to(expected_result)
+
+@pytest.mark.parametrize("first_range, expected_result", [
+    (Range(6, 8), Range(5, 8)),
+    (Range(2, 5), Range(1, 5))])
+def test_stretch_left_default(first_range, expected_result):
+    first_range.stretch_left()
+    assert first_range.is_equal_to(expected_result)
+
+@pytest.mark.parametrize("first_range, step, expected_result", [
+    (Range(1, 3), 5, Range(1, 8)),
+    (Range(2, 5), 0, Range(2, 5))])
+def test_stretch_right(first_range, step, expected_result):
+    first_range.stretch_right(step)
+    assert first_range.is_equal_to(expected_result)
+
+@pytest.mark.parametrize("first_range, expected_result", [
+    (Range(1, 3), Range(1, 4)),
+    (Range(5), Range(6))])
+def test_stretch_right_default(first_range, expected_result):
+    first_range.stretch_right()
+    assert first_range.is_equal_to(expected_result)
+
+@pytest.mark.parametrize("first_range, left_step, right_step, expected_result", [
+    (Range(6, 8), 5, 4, Range(1, 12)),
+    (Range(2, 5), 0, 2, Range(2, 7))])
+def test_stretch(first_range, left_step, right_step, expected_result):
+    first_range.stretch(left_step, right_step)
+    assert first_range.is_equal_to(expected_result)
+
+@pytest.mark.parametrize("first_range, left_step, expected_result", [
+    (Range(6, 8), 5, Range(1, 9)),
+    (Range(2, 5), 0, Range(2, 6))])
+def test_stretch_default_right(first_range, left_step, expected_result):
+    first_range.stretch(left_step)
+    assert first_range.is_equal_to(expected_result)
+
+@pytest.mark.parametrize("first_range, expected_result", [
+    (Range(6, 8), Range(5, 9)),
+    (Range(2, 5), Range(1, 6))])
+def test_stretch_default(first_range, expected_result):
+    first_range.stretch()
+    assert first_range.is_equal_to(expected_result)
