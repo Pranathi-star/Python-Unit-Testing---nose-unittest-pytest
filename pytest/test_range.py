@@ -33,8 +33,8 @@ def test_disjoint(first_range, second_range, expected_result):
 
 
 @pytest.mark.parametrize("first_range, second_range, expected_result", [
-    (Range(1, 2), Range(2, 7), True),
-    (Range(2, 7), Range(1, 2), True),
+    (Range(1, 2), Range(2, 7), False),
+    (Range(2, 7), Range(1, 2), False),
     (Range(1, 5), Range(4, 7), False),
     (Range(1, 2), Range(4, 7), False),
     (Range(4, 7), Range(1, 2), False)])
