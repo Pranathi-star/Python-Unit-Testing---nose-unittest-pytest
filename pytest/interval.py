@@ -1,16 +1,18 @@
 from abc import ABC
 from enum import Enum
 
+
 class Relation(Enum):
     SUBSET = 0
-    SUPERSET = 0 
+    SUPERSET = 0
     OVERLAPL = 0
     OVERLAPR = 0
     TOUCHINGL = 0
     TOUCHINGR = 0
     LESSDISJOINT = 0
     MOREDISJOINT = 0
-    SAME = 0  
+    SAME = 0
+
 
 class Range(ABC):
     def __init__(self, *args):
@@ -20,48 +22,49 @@ class Range(ABC):
         elif len(args) == 1:
             self.start = 0
             self.end = args[0]
-        else: # 0 args or more than 3 args 
+        else:  # 0 args or more than 3 args
             self.start = self.end = 0
 
     def __reset__(self):
         self.start = self.end = 0
-    
+
     def rStretch(self, *args):
         if len(args) == 0:
             self.end += 1
-        else: 
+        else:
             self.end += args[0]
 
-    def lStretch(self):
+    def lStretch(self, *args):
         if len(args) == 0:
             self.start -= 1
-        else: 
+        else:
             self.start -= args[0]
-        
+
     def stretch(self, *args):
         if len(args) == 0:
             self.start -= 1
-            self.end +=1
-        else: 
+            self.end += 1
+        else:
             self.start -= args[0]
             self.end += args[0]
-    
+
     def squeeze(self, *args):
         if len(args) == 0:
             self.start += 1
-            self.end -=1
-        else: 
+            self.end -= 1
+        else:
             self.start += args[0]
             self.end -= args[0]
         if self.start > self.end:
             self.__reset__()
 
-    def shift(self, n: int):
+    def shift(self, n: int = 1):
         self.start += n
         self.end += n
 
     def length(self) -> int:
         pass
+        # return len(self.toList())
 
     def toString(self) -> str:
         pass
@@ -80,13 +83,13 @@ class Range(ABC):
 
     def lessThan(self, range_) -> bool:
         return self.length() < range_.length() if self.start == range_.start else self.start < range_.start
-        
+
     def merge(self, range_):
         pass
 
     def common(self, range_):
         pass
-    
+
     def classify(self, range_):
         if self.end == range_.start:
             return Relation.TOUCHINGR
@@ -94,7 +97,7 @@ class Range(ABC):
             return Relation.TOUCHINGL
         if (self.equals(range_)):
             return Relation.SAME
-        if (self.contains(range_)): 
+        if (self.contains(range_)):
             return Relation.SUPERSET
         if (range_.contains(self)):
             return Relation.SUBSET
@@ -106,15 +109,21 @@ class Range(ABC):
         if (self.lessThan(range_)):
             return Relation.OVERLAPL
         return Relation.OVERLAPR
+
     def toList(self) -> [int]:
         pass
+
+
 class OpenRange(Range):
     ''' (a, b) '''
+
     def toString(self) -> str:
-        return f'({self.start}, {self.end})'  
+        return f'({self.start}, {self.end})'
 
     def length(self) -> int:
-        return abs(self.end - self.start - 2)
+        if self.end - self.start - 1 > 3:
+            return self.end - self.start - 1
+        return len(self.toList())
 
     def contains(self, x) -> bool:
         if isinstance(x, int):
@@ -122,7 +131,7 @@ class OpenRange(Range):
         return self.start <= x.start and x.end <= self.end
 
     def isDisjoint(self, range_) -> bool:
-        return (self.start - 1) > (range_.end - 1) or (self.end - 1) < (range_.start - 1)
+        return (self.start - 1) >= (range_.end - 1) or (self.end - 1) <= (range_.start - 1)
 
     def merge(self, range_):
         if (self.isDisjoint(range_)):
@@ -143,11 +152,14 @@ class OpenRange(Range):
 
 class ClosedRange(Range):
     ''' [a, b] '''
+
     def toString(self) -> str:
         return f'[{self.start}, {self.end}]'
 
     def length(self) -> int:
-        return abs(self.end - self.start)
+        if self.end - self.start + 1 > 3:
+            return self.end - self.start + 1
+        return len(self.toList())
 
     def contains(self, x) -> bool:
         if isinstance(x, int):
@@ -173,13 +185,17 @@ class ClosedRange(Range):
     def toList(self) -> [int]:
         return list(range(self.start, self.end + 1))
 
+
 class SemiOpenRange(Range):
     ''' [a, b) '''
+
     def toString(self) -> str:
         return f'[{self.start}, {self.end})'
 
     def length(self) -> int:
-        return abs(self.end - self.start - 1)
+        if self.end - self.start > 3:
+            return self.end - self.start
+        return len(self.toList())
 
     def contains(self, x) -> bool:
         if isinstance(x, int):
@@ -205,6 +221,7 @@ class SemiOpenRange(Range):
     def toList(self) -> [int]:
         return list(range(self.start, self.end))
 
+
 range0 = ClosedRange(1, 3)
 range1 = ClosedRange(3, 5)
 range2 = OpenRange(3, 5)
@@ -217,4 +234,3 @@ print(range0.isOverlapping(range1))
 print(range0.classify(range1))
 print(range2.toString())
 print(range3.toString())
-
